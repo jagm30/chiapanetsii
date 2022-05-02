@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class Departamento extends Model
 {
     //
     protected $fillable = [
-        'nombre', 'email', 'seccion','salon','puesto','fecha_nac'
+        'nombre', 'seccion'
     ];
 }

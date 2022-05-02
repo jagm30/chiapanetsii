@@ -2,18 +2,6 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section("contenidoprincipal")
-<div>
-    <ul class="breadcrumb">
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="/usuarios">Usuarios</a>
-        </li>
-    </ul>
-</div>
-
-
 <div class="row">
     
     <div class="box col-md-12">
@@ -100,14 +88,13 @@
                 <tbody>
                     @foreach($usuarios as $user)
                         <tr>
-                            <td>Chris Jack</td>
-                            <td class="center">2012/01/01</td>
-                            <td class="center">Member</td>
+                            <td>{{$user->name}}</td>
+                            <td class="center">{{$user->email}}</td>
+                            <td class="center">{{$user->tipo_usuario}}</td>
                             <td class="center">
                                 <span class="label-success label label-default">Active</span>
                             </td>
-                            <td class="center">
-                                
+                            <td class="center" width="120">                                
                                 <a class="btn btn-info" href="#">
                                     <i class="glyphicon glyphicon-edit icon-white"></i>
                                     Edit

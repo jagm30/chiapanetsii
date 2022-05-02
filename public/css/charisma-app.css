@@ -319,9 +319,9 @@ div.center, p.center, img.center {
 
 .navbar-brand {
     font-family: 'Shojumaru', cursive, Arial, serif;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    width: 183px;
+    width: 250px;
     font-size: 17px;
 }
 
@@ -346,10 +346,10 @@ div.center, p.center, img.center {
 }
 
 .navbar-inner {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    line-height: 30px;
-    height: 60px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    line-height: 20px;
+    height: 40px;
 }
 
 

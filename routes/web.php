@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 Route::resource('usuarios', 'UserController');
 Route::resource('clientes', 'ClienteController');
+Route::resource('tickets', 'TicketController');
+Route::resource('departamentos', 'DepartamentoController');
+Route::resource('catservicios', 'CatservicioController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

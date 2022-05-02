@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cliente;
+use App\Catservicio;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class Catserviciocontroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
-       // return "clientes";
-        $clientes = Cliente::all();
-        //return $usuarios;
-        return view("clientes.index",compact('clientes'));
+        $catservicios = Catservicio::all();
+        return $catservicios;
     }
 
     /**
@@ -40,25 +37,15 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         //
-        $cliente                   = new Cliente;        
-        $cliente->nombre           = $request->nombre;
-        $cliente->email            = $request->email;
-        $cliente->seccion          = $request->seccion;
-        $cliente->salon            = $request->salon;
-        $cliente->puesto           = $request->puesto;
-        $cliente->fecha_nac        = $request->fecha_nac;        
-        
-        $cliente->save();
-        return redirect('/clientes');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Catservicio  $catservicio
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(Catservicio $catservicio)
     {
         //
     }
@@ -66,10 +53,10 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Catservicio  $catservicio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit(Catservicio $catservicio)
     {
         //
     }
@@ -78,10 +65,10 @@ class ClienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Catservicio  $catservicio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, Catservicio $catservicio)
     {
         //
     }
@@ -89,10 +76,10 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  \App\Catservicio  $catservicio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Catservicio $catservicio)
     {
         //
     }
