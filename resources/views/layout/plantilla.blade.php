@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ES">
 
     <meta charset="utf-8">
     <title>SII ChiapaNet</title>
@@ -49,13 +49,22 @@
             <!-- user dropdown starts -->
             <div class="btn-group pull-right">
                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
+                    @guest
+
+                        @else
+                            <li class="nav-item dropdown">
+                                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> {{ Auth::user()->name }}        
+                            </li>
+                        @endguest
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
                     <li class="divider"></li>
-                    <li><a href="login.html">Logout</a></li>
+                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesion</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                        </form>
+                    </li>
                 </ul>
             </div>
             <!-- user dropdown ends -->
@@ -77,17 +86,17 @@
                     </div>
                     <ul class="nav nav-pills nav-stacked main-menu">
                         <li class="nav-header">Main</li>
-                        <li><a class="ajax-link" href="/"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
+                        <li><a class="ajax-link" href="/home"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>
                         <li><a class="ajax-link" href="/usuarios"><i class="glyphicon glyphicon-eye-open"></i><span> Usuarios</span></a>
                         </li>
                         <li><a class="ajax-link" href="/clientes"><i
                                     class="glyphicon glyphicon-edit"></i><span> Clientes</span></a></li>
-                        <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-list-alt"></i><span> Charts</span></a>
+                        <li><a class="ajax-link" href="/tickets"><i class="glyphicon glyphicon-list-alt"></i><span> Tickets</span></a>
                         </li>
-                        <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-font"></i><span> Typography</span></a>
+                        <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-font"></i><span> Reportes</span></a>
                         </li>
-                        <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-picture"></i><span> Hojas de servicio</span></a>
                         </li>
                         
                     </ul>
@@ -106,25 +115,7 @@
 </div>
 <!--/#content.col-md-0-->
 </div><!--/fluid-row-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3>Settings</h3>
-                </div>
-                <div class="modal-body">
-                    <p>Here settings can be configured...</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">Save changes</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <footer class="row">
        
@@ -170,6 +161,6 @@
 <!-- application script for Charisma demo -->
 <script src=" {{ asset("js/charisma.js")}} "></script>
 
-
+@yield("scriptpersonal")
 </body>
 </html>

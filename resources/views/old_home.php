@@ -55,41 +55,38 @@
 
 <div class="row">
     <div class="box col-md-12">
-        <div class="box-inner">
-            <div class="box-header well">
-                <h2><i class="glyphicon glyphicon-info-sign"></i> Introduction</h2>
-
-                <div class="box-icon">
-                    <a href="#" class="btn btn-setting btn-round btn-default"><i
-                            class="glyphicon glyphicon-cog"></i></a>
-                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
-                            class="glyphicon glyphicon-chevron-up"></i></a>
-                    <a href="#" class="btn btn-close btn-round btn-default"><i
-                            class="glyphicon glyphicon-remove"></i></a>
-                </div>
-            </div>
-            <div class="box-content row">
-                <div class="col-lg-7 col-md-12">
-                    <h1>SICS CHIAPANET <br>
-                        <small>Sistema Informatico de Control de Servicios</small>
-                    </h1>
-                    <p>Sistema desarrollado para atenciòn a clientes, su objetivo es registrar todos los 
-                        servicios del clientes.
-                        - Clientes
-                        - Catalogo de servicios
-                        - Mantenimientos programados
-                        - Licencias
-                        - Servicios o tickets
-                        - Ventas realizadas.
-                        - Catalogo de productos
-                    
-                    </p>
-
-                    
-                </div>
-
-            </div>
-        </div>
+        <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Solicitante</th>
+            <th>Lugar</th>
+            <th>Descripcion del servicio</th>
+            <th>Prioridad</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach($tickets as $ticket)
+                <tr>
+                    <td>{{$ticket->fecha}}</td>
+                    <td class="center">{{$ticket->name}}</td>
+                    <td class="center">{{$ticket->nombre}} {{$ticket->seccion}}</td>
+                    <td class="center">{{$ticket->descripcion}}</td>
+                    <td class="center" style="background-color: @if($ticket->prioridad=='alto') red @else green @endif; color: white;">{{$ticket->prioridad}}</td>
+                    <td class="center" >{{$ticket->status}}</td>
+                    <td class="center" width="160">
+                        <a class="btn btn-info" href="/tickets/{{$ticket->id}}">
+                            <i class="glyphicon glyphicon-edit icon-white"></i>
+                            Seguimiento
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+        
+        </tbody>
+        </table>
     </div>
 </div>
 @endsection

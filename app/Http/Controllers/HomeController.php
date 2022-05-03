@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Ticket;
+use App\Ticketseguimiento;
+use App\Cliente;
+use App\Departamento;
+use App\Catservicio;
 
 class HomeController extends Controller
 {
@@ -23,6 +29,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+         $tickets    = DB::table('tickets')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario')
+                    ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
+                    ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
+                    ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
+                    ->get();
+        $clientes       = Cliente::all();
+        $departamentos  = Departamento::all();
+        $catservicios   = Catservicio::all();
+        //return $usuarios;        
+        return view('home',compact('tickets','clientes','departamentos','catservicios'));
     }
 }

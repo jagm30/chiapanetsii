@@ -16,8 +16,8 @@
                 <div class="form-group has-success col-md-4">
                     <label class="control-label" for="inputSuccess1">Solicitante</label> 
                     <select id="solicitante" name="solicitante" class="form-control">
-                        @foreach($clientes as $cliente)
-                            <option value="">Seleccione una opcion</option>
+                        <option value="">Seleccione una opcion</option>
+                        @foreach($clientes as $cliente)                            
                             <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                         @endforeach
                     </select>

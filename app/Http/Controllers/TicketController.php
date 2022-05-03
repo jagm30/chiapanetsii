@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Ticket;
+use App\Ticketseguimiento;
 use App\Cliente;
 use App\Departamento;
 use App\Catservicio;
@@ -16,13 +17,14 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad')
-                    ->join('users', 'tickets.solicitante', '=', 'users.id')
-                    ->join('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
-                    ->join('catservicios', 'tickets.tipo', '=', 'catservicios.id')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario')
+                    ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
+                    ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
+                    ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
                     ->get();
         $clientes       = Cliente::all();
         $departamentos  = Departamento::all();
@@ -73,13 +75,20 @@ class TicketController extends Controller
     public function show(Request $request, $id)
     {        
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio')
-                    ->join('users', 'tickets.solicitante', '=', 'users.id')
-                    ->join('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
-                    ->join('catservicios', 'tickets.tipo', '=', 'catservicios.id')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente')
+                    ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
+                    ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
+                    ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
+                    ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
                     ->where('tickets.id',$id)
                     ->first();
-        return view('tickets.show',compact('tickets'));
+        $seguimiento= DB::table('ticketseguimientos')
+                    ->select('tickets.id','ticketseguimientos.fecha','ticketseguimientos.descripcion','ticketseguimientos.status','name')
+                    ->leftjoin('users', 'ticketseguimientos.id_usuario', '=', 'users.id')
+                    ->join('tickets', 'tickets.id', '=', 'ticketseguimientos.id_ticket')
+                    ->where('ticketseguimientos.id_ticket',$id)
+                    ->get();
+        return view('tickets.show',compact('tickets','seguimiento'));
     }
 
     /**
