@@ -8,6 +8,6 @@ class Cliente extends Model
 {
     //
     protected $fillable = [
-        'nombre', 'email', 'seccion','salon','puesto','fecha_nac'
+        'id','nombre', 'email', 'seccion','salon','puesto','fecha_nac'
     ];
 }

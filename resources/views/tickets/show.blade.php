@@ -20,18 +20,21 @@
                         <li>
                             <a href="#">
                                 <img class="dashboard-avatar" alt="Usman"
-                                     src="http://www.gravatar.com/avatar/f0ea51fa1e4fae92608d8affee12f67b.png?s=50"></a>
+                                         src="/img/clientes/{{$tickets->id_cliente}}.jpg?s=50"></a>
                             <strong>Solicitante:</strong> <a href="#">{{$tickets->nomcliente}}
                             </a><br><br><br><br>
                             <strong>Fecha:</strong>{{$tickets->fecha}}<br>
                             <strong>Seccion:</strong>{{$tickets->seccion}}<br>
                             <strong>Lugar:</strong>{{$tickets->nombre}}<br>
-                            <strong>Status:</strong> <span class="label-success label label-default">{{$tickets->status}}</span>
+                            <strong>Status:</strong> <span class=" @if($tickets->status=='activo')label-success @else label-danger @endif label label-default">{{$tickets->status}}</span>
                             <br>
                             <strong>Tipo de servicio:</strong>{{$tickets->servicio}}<br>
                             <strong>Descripción:</strong>{{$tickets->descripcion}}<br>
                             <br>
-                            <a href="#" class="btn btn-success btn-setting" >Registrar seguimiento</a>
+                            @if($tickets->status=='activo') 
+                                <a href="#" class="btn btn-primary btn-setting" >Seguimiento</a>
+                                <a href="#" id="btn-finalizarticket" class="btn btn-danger" data-id="{{$tickets->id}}" >Finalizar Ticket</a>
+                            @else @endif
                         </li>                       
                     </ul>
                 </div>
@@ -57,12 +60,10 @@
                             <li>
                                 <a href="#">
                                     <img class="dashboard-avatar" alt="Usman"
-                                         src="http://www.gravatar.com/avatar/f0ea51fa1e4fae92608d8affee12f67b.png?s=50"></a>
+                                         src="/img/users/{{$row->id_usuario}}.jpg?s=50"></a>
                                 <strong>Soporte:</strong> <a href="#">{{$row->name}}
-                                </a><br><br><br><br>
+                                </a><br>
                                 <strong>Fecha:</strong>{{$row->fecha}}<br>
-                                <strong>Status:</strong> <span class="label-success label label-default">{{$row->status}}</span>
-                                <br>
                                 <strong>Descripción:</strong>{{$row->descripcion}}<br>
                             </li>                       
                         </ul>
@@ -89,7 +90,7 @@
 
                     <div class="form-group has-warning col-md-6">
                         <label class="control-label" for="inputWarning1">Fecha</label>
-                        <input id="fecha" name="fecha" type="date" class="form-control" >
+                        <input id="fecha" name="fecha" type="date" class="form-control" required value="{{$fecha_actual}}" >
                     </div>
                                 
                     <div class="form-group has-success col-md-12">
@@ -116,7 +117,7 @@
       var fecha             = $('#fecha').val();
       var descripcion       = $('#descripcion').val();
       var id_usuario      = <?php echo auth()->id(); ?>;
-      alert(id_usuario);
+    //  alert(id_usuario);
         $.ajax({
             url: "/ticketseguimientos",
             type: "POST",
@@ -131,24 +132,29 @@
             },
             cache: false,
             success: function(dataResult){              
-                alert(dataResult);                     
-               /* $('#venta_table').DataTable().ajax.reload();           
-                $('#form-editar').trigger("reset");              
-                subtotal  = subtotal + (costo_unitario*cantidad);
-                iva       = subtotal*0.16;
-                $('#subtotal').val(subtotal);
-                $('#IVA').val(subtotal*0.16);                
-                $('#total').val(subtotal+iva);
-                total_p = parseInt($("#total_venta").val());
-                sub     = parseInt(costo_unitario*cantidad);
-                total   = total_p+sub;
-                $("#total_venta").val()  = total;*/
-                //alert(total);
-               // number_format(subtotal, 2, '.', ',') 
+                alert(dataResult);   
+                location.reload();                  
 
-                //alert($('#total').val());
             }
         });    
+    });
+    $('#btn-finalizarticket').on('click', function() {        
+      if (confirm("Realmente desea finaliza el ticket") == true) {
+        var id_ticket         = $(this).attr('data-id');
+        var id_usuario      = <?php echo auth()->id(); ?>;
+        $.ajax({
+            url: "/tickets/finalizar/"+id_ticket,
+            type: "GET",
+            data: {                
+                id_ticket     : id_ticket
+            },
+            cache: false,
+            success: function(dataResult){              
+                alert(dataResult);   
+                location.reload();                  
+            }
+        });  
+      }         
     });
 </script>
 @endsection

@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 Route::resource('usuarios', 'UserController');
 Route::resource('clientes', 'ClienteController');
+Route::get('tickets/finalizar/{id}', 'TicketController@finalizar')->name('finalizar');
 Route::resource('tickets', 'TicketController');
 Route::resource('ticketseguimientos', 'TicketseguimientoController');
 Route::resource('departamentos', 'DepartamentoController');

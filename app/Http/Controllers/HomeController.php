@@ -29,11 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario')
+        $tickets    = DB::table('tickets')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario','clientes.nombre as nomcliente')
                     ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
                     ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
                     ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
+                    ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
                     ->get();
         $clientes       = Cliente::all();
         $departamentos  = Departamento::all();

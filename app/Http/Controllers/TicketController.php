@@ -9,6 +9,7 @@ use App\Cliente;
 use App\Departamento;
 use App\Catservicio;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -20,17 +21,19 @@ class TicketController extends Controller
     
     public function index()
     {
+        $fecha_actual =  Carbon::now()->format('Y-m-d');
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario','clientes.nombre as nomcliente')
                     ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
                     ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
                     ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
+                    ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
                     ->get();
         $clientes       = Cliente::all();
         $departamentos  = Departamento::all();
         $catservicios   = Catservicio::all();
         //return $usuarios;
-        return view("tickets.index",compact('tickets','clientes','departamentos','catservicios'));
+        return view("tickets.index",compact('tickets','clientes','departamentos','catservicios','fecha_actual'));
     }
 
     /**
@@ -74,8 +77,9 @@ class TicketController extends Controller
      */
     public function show(Request $request, $id)
     {        
+        $fecha_actual =  Carbon::now()->format('Y-m-d');
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente')
+                    ->select('tickets.id','tickets.id_usuario','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente','clientes.id as id_cliente')
                     ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
                     ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
                     ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
@@ -83,12 +87,12 @@ class TicketController extends Controller
                     ->where('tickets.id',$id)
                     ->first();
         $seguimiento= DB::table('ticketseguimientos')
-                    ->select('tickets.id','ticketseguimientos.fecha','ticketseguimientos.descripcion','ticketseguimientos.status','name')
+                    ->select('tickets.id','tickets.id_usuario','ticketseguimientos.fecha','ticketseguimientos.descripcion','ticketseguimientos.status','name')
                     ->leftjoin('users', 'ticketseguimientos.id_usuario', '=', 'users.id')
                     ->join('tickets', 'tickets.id', '=', 'ticketseguimientos.id_ticket')
                     ->where('ticketseguimientos.id_ticket',$id)
                     ->get();
-        return view('tickets.show',compact('tickets','seguimiento'));
+        return view('tickets.show',compact('tickets','seguimiento','fecha_actual'));
     }
 
     /**
@@ -123,5 +127,16 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+    public function finalizar(Request $request, $id){
+       
+        $ticket = Ticket::find($id);
+        $ticket->status = 'finalizado';
+        $ticket->save();
+       //DB::table('tickets')->where('id',$id)->update(['status' => 'finalizado']);
+        DB::table('ticketseguimientos')->where('id_ticket',$id)->update(['status' => 'finalizado']);
+        return json_encode(array(
+            "Estado"=>"Finalizado correctamente"
+        ));
     }
 }
