@@ -121,7 +121,7 @@
        
 
         <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
-                href="#">Chiapanet</a></p>
+                target="_blank" href="https://www.chiapanetcomputo.com">Chiapanet</a></p>
     </footer>
 
 </div><!--/.fluid-container-->

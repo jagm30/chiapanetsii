@@ -30,16 +30,21 @@ class HomeController extends Controller
     public function index()
     {
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario','clientes.nombre as nomcliente')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario','clientes.nombre as nomcliente','clientes.id as idcliente')
                     ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
                     ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
                     ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
                     ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
+                    ->where('status','activo')
                     ->get();
         $clientes       = Cliente::all();
+        $cant_clientes  = Cliente::where('nombre', '!=','')->count();
+        $total_tickets  = Ticket::where('status', '!=','')->count();
+        $total_ticketsf = Ticket::where('status', '=','finalizado')->count();
+        $total_ticketsp = Ticket::where('status', '=','activo')->count();
         $departamentos  = Departamento::all();
         $catservicios   = Catservicio::all();
         //return $usuarios;        
-        return view('home',compact('tickets','clientes','departamentos','catservicios'));
+        return view('home',compact('tickets','clientes','departamentos','catservicios','cant_clientes','total_ticketsf','total_ticketsp','total_tickets'));
     }
 }

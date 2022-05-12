@@ -17,8 +17,8 @@
             <i class="glyphicon glyphicon-user blue"></i>
 
             <div>Total Clientes</div>
-            <div>507</div>
-            <span class="notification">6</span>
+            <div>{{$cant_clientes}}</div>
+            <span class="notification">{{$cant_clientes}}</span>
         </a>
     </div>
 
@@ -26,9 +26,9 @@
         <a data-toggle="tooltip" title="4 new pro members." class="well top-block" href="#">
             <i class="glyphicon glyphicon-star green"></i>
 
-            <div>Servicios</div>
-            <div>228</div>
-            <span class="notification green">4</span>
+            <div>Tickets finalizados</div>
+            <div>{{$total_ticketsf}}</div>
+            <span class="notification green">{{$total_ticketsf}}</span>
         </a>
     </div>
 
@@ -36,9 +36,9 @@
         <a data-toggle="tooltip" title="$34 new sales." class="well top-block" href="#">
             <i class="glyphicon glyphicon-shopping-cart yellow"></i>
 
-            <div>Pendientes</div>
-            <div>$13320</div>
-            <span class="notification yellow">$34</span>
+            <div>Tickets Pendientes</div>
+            <div>{{$total_ticketsp}}</div>
+            <span class="notification yellow">{{$total_ticketsp}}</span>
         </a>
     </div>
 
@@ -46,9 +46,9 @@
         <a data-toggle="tooltip" title="12 new messages." class="well top-block" href="#">
             <i class="glyphicon glyphicon-envelope red"></i>
 
-            <div>Pedidos</div>
-            <div>25</div>
-            <span class="notification red">12</span>
+            <div>Total de tickets</div>
+            <div>{{$total_tickets}}</div>
+            <span class="notification red">{{$total_tickets}}</span>
         </a>
     </div>
 
@@ -69,7 +69,8 @@
             @foreach($tickets as $ticket)
                 <tr>
                     <td>{{$ticket->fecha}}</td>
-                    <td class="center">{{$ticket->nomcliente}}</td>
+                    <td class="center"><img class="dashboard-avatar" alt="Usman"
+                                         src="/img/clientes/{{$ticket->idcliente}}.jpg?s=50"> {{$ticket->nomcliente}}</td>
                     <td class="center">{{$ticket->nombre}} {{$ticket->seccion}}</td>
                     <td class="center">{{$ticket->descripcion}}</td>
                     <td class="center" style="background-color: @if($ticket->prioridad=='alto') red @else green @endif; color: white;">{{$ticket->prioridad}}</td>
