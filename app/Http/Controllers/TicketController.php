@@ -62,7 +62,7 @@ class TicketController extends Controller
         $tickets->tipo             = $request->tipo;
         $tickets->descripcion      = $request->descripcion;
         $tickets->fechafin         = $request->fechafin;
-        $tickets->id_usuario       = 1;
+        $tickets->id_usuario       = auth()->id();
         $tickets->status           = 'activo';
         $tickets->folio            = $request->folio;
         
