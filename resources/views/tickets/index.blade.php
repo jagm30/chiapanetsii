@@ -47,6 +47,10 @@
                 <div class="form-group has-success col-md-12">
                     <label class="control-label" for="inputSuccess1">Descripcion</label>
                     <input id="descripcion" type="text" class="form-control"  name="descripcion" required >
+                </div> 
+                <div class="form-group has-success col-md-3">
+                    <label class="control-label" for="inputSuccess1">Folio de solicitud</label>
+                    <input id="folio" type="text" class="form-control"  name="folio" required value="n/a">
                 </div>               
                 <div class="form-group has-warning col-md-3">                    
                     <button type="submit" class="form-control btn btn-success">Guardar</button>

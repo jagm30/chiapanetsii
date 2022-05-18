@@ -23,7 +23,7 @@ class TicketController extends Controller
     {
         $fecha_actual =  Carbon::now()->format('Y-m-d');
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario','clientes.nombre as nomcliente')
+                    ->select('tickets.id','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','id_usuario','clientes.nombre as nomcliente','folio')
                     ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
                     ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
                     ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
@@ -64,6 +64,7 @@ class TicketController extends Controller
         $tickets->fechafin         = $request->fechafin;
         $tickets->id_usuario       = 1;
         $tickets->status           = 'activo';
+        $tickets->folio            = $request->folio;
         
         $tickets->save();
         return redirect('/tickets');
@@ -79,7 +80,7 @@ class TicketController extends Controller
     {        
         $fecha_actual =  Carbon::now()->format('Y-m-d');
         $tickets    = DB::table('tickets')
-                    ->select('tickets.id','tickets.id_usuario','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente','clientes.id as id_cliente')
+                    ->select('tickets.id','tickets.id_usuario','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente','clientes.id as id_cliente','folio')
                     ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
                     ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
                     ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
