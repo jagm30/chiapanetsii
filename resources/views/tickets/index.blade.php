@@ -13,22 +13,23 @@
     <div class="box-content row">
             <form method="POST" action="/tickets">
                 @csrf
+                <div class="form-group has-warning col-md-2">
+                    <label class="control-label" for="inputWarning1">Fecha</label>
+                    <input id="fecha" name="fecha" required type="date" class="form-control" value="{{$fecha_actual}}">
+                </div>
                 <div class="form-group has-success col-md-4">
                     <label class="control-label" for="inputSuccess1">Solicitante</label> 
-                    <select required id="solicitante" name="solicitante" class="form-control">
+                    <select required id="solicitante" name="solicitante" class="form-control" data-rel="chosen">
                         <option value="">Seleccione una opcion</option>
                         @foreach($clientes as $cliente)                            
                             <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group has-warning col-md-2">
-                    <label class="control-label" for="inputWarning1">Fecha</label>
-                    <input id="fecha" name="fecha" required type="date" class="form-control" value="{{$fecha_actual}}">
-                </div>
+                
                 <div class="form-group has-warning col-md-3">
                     <label class="control-label" for="inputWarning1">Ubicacion</label>
-                    <select id="ubicacion" name="ubicacion" required class="form-control">
+                    <select id="ubicacion" name="ubicacion" required class="form-control" data-rel="chosen">
                         <option value="">Seleccione</option>
                         @foreach($departamentos as $departamento)
                             <option value="{{$departamento->id}}">{{$departamento->nombre}} - {{$departamento->seccion}}</option>
@@ -37,7 +38,7 @@
                 </div>
                 <div class="form-group has-warning col-md-3">
                     <label class="control-label" for="inputWarning1">Tipo de servicio</label>
-                    <select id="tipo" name="tipo" class="form-control" required>
+                    <select id="tipo" name="tipo" class="form-control" required data-rel="chosen">
                         <option value="">Seleccione</option>
                         @foreach($catservicios as $catservicio)
                             <option value="{{$catservicio->id}}">{{$catservicio->servicio}}</option>
