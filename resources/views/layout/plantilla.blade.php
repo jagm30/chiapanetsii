@@ -90,8 +90,8 @@
                         </li>
                         <li><a class="ajax-link" href="/usuarios"><i class="glyphicon glyphicon-eye-open"></i><span> Usuarios</span></a>
                         </li>
-                        <li><a class="ajax-link" href="/clientes"><i
-                                    class="glyphicon glyphicon-edit"></i><span> Clientes</span></a></li>
+                        <li><a class="ajax-link" href="/clientes"><i class="glyphicon glyphicon-edit"></i><span> Clientes</span></a></li>
+                        <li><a class="ajax-link" href="/articulos"><i class="glyphicon glyphicon-edit"></i><span> Articulos</span></a></li>
                         <li><a class="ajax-link" href="/tickets"><i class="glyphicon glyphicon-list-alt"></i><span> Tickets</span></a>
                         </li>
                         <li><a class="ajax-link" href="#"><i class="glyphicon glyphicon-font"></i><span> Reportes</span></a>

@@ -294,6 +294,38 @@ function docReady() {
         e.preventDefault();
         $('#myModal').modal('show');
     });
+    $('.btn-modalhojaservicio').click(function (e) {
+        e.preventDefault();
+        $('#myModalHojaServicio').modal('show');
+        var id_ticket         = $(this).attr('data-id');
+        //alert(id_ticket);
+        $.ajax({
+            url: "/tickets/"+id_ticket,
+            type: "GET",
+            cache: false,
+            success: function(dataResult){              
+                var tickets =  JSON.parse(dataResult);
+                $('#detalle').val(tickets.descripcion);
+                $('#folio').val(tickets.folio);
+               // alert(tickets.nomcliente);                     
+                /*$('#venta_table').DataTable().ajax.reload();           
+                $('#form-editar').trigger("reset");              
+                subtotal  = subtotal + (costo_unitario*cantidad);
+                iva       = subtotal*0.16;
+                $('#subtotal').val(subtotal);
+                $('#IVA').val(subtotal*0.16);                
+                $('#total').val(subtotal+iva);
+                total_p = parseInt($("#total_venta").val());
+                sub     = parseInt(costo_unitario*cantidad);
+                total   = total_p+sub;
+                $("#total_venta").val()  = total;
+                //alert(total);*/
+               // number_format(subtotal, 2, '.', ',') 
+
+                //alert($('#total').val());
+            }
+        });  
+    });
 
 
     $('#calendar').fullCalendar({

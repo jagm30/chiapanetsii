@@ -33,7 +33,8 @@
                             <br>
                             @if($tickets->status=='activo') 
                                 <a href="#" class="btn btn-primary btn-setting" >Seguimiento</a>
-                                <a href="#" id="btn-finalizarticket" class="btn btn-danger" data-id="{{$tickets->id}}" >Finalizar Ticket</a>
+                                <a href="#" id="btn-finalizarticket" class="btn btn-danger" data-id="{{$tickets->id}}" >Finalizar Ticket</a> <br><br>
+                                <a href="#" id="btn-hojaservicio" data-id="{{$tickets->id}}" class="btn btn-success btn-modalhojaservicio" data-id="{{$tickets->id}}" >Generar Hoja de Servicio</a>
                             @else @endif
                         </li>                       
                     </ul>
@@ -107,6 +108,80 @@
             </div>
         </div>
     </div>
+
+<div class="modal fade" id="myModalHojaServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <form id="form-editar">
+            <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 style="color: #002B7F;">Hoja de servicios</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group has-warning col-md-4">
+                        <label class="control-label" for="inputWarning1">Fecha</label>
+                        <input id="fecha" name="fecha" type="date" class="form-control" required value="{{$fecha_actual}}" >
+                    </div>
+                    <div class="form-group has-warning col-md-4">
+                        <label class="control-label" for="inputWarning1">Folio</label>
+                        <input id="folio" name="folio" type="text" class="form-control" placeholder="Ej. folio de solicitud de servicio" required>
+                    </div>
+                    <div class="form-group has-warning col-md-4">
+                        <label class="control-label" for="inputWarning1">Motivo</label>
+                        <input id="motivo" name="motivo" type="text" class="form-control" required placeholder="Ej. Cronograma. ticket, etc">
+                    </div>
+
+                    <div class="form-group has-warning col-md-6">
+                        <label class="control-label">Tipo de Servicio</label>
+                        <select id="tipo_servicio" name="tipo_servicio" class="form-control select">
+                            <option  value="">Seleccione</option>
+                            <option>Preventivo</option>
+                            <option>Correctivo</option>
+                            <option>Revision</option>
+                            <option>Reparación</option>
+                            <option>N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group has-warning col-md-6">
+                        <label class="control-label" for="inputWarning1">Equipo</label>
+                        <select id="id_equipo" name="id_equipo" class="form-control select">
+                            <option value="">Seleccione</option>
+                            <option>PC M58 Intel core 2 duo, N/S_ mj68a7s8d7</option>
+                            <option>PC M58 Intel core 2 duo, N/S_ mj68a3n42jn</option>
+                            <option>PC M58 Intel core 2 duo, N/S_ mj68sdfds4</option>
+                            <option>PC M58 Intel core 2 duo, N/S_ mj68a7dfew</option>
+                        </select>
+                    </div>
+                    <div class="form-group has-success col-md-12">
+                        <label class="control-label" for="inputSuccess1">Detalles</label>
+                        <input id="detalle" type="text" class="form-control"  name="detalle" required >
+                    </div>               
+                    <div class="form-group has-success col-md-12">
+                        <label class="control-label" for="inputSuccess1">Detalles, Servicio Realizado</label>
+                        <input id="solucion" type="text" class="form-control"  name="solucion" required >
+                    </div>  
+                    <div class="form-group has-warning col-md-6">
+                        <label class="control-label" for="inputWarning1">Fecha de entrega</label>
+                        <input id="fecha_entrega" name="fecha_entrega" type="date" class="form-control" required value="{{$fecha_actual}}" >
+                    </div>
+                    <div class="form-group has-warning col-md-6">
+                        <label class="control-label" for="inputWarning1">Proximo mantenimiento</label>
+                        <input id="proximoservicio" name="proximoservicio" type="date" class="form-control" required value="{{$fecha_actual}}" >
+                    </div>             
+                    <br><br><br><br><br><br><br><br><br>
+                </div>
+                <div class="modal-footer">
+                    <a   class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                    <a href="#" data-id="{{$tickets->id}}" id="btn-guardarhojaservicio" class="btn btn-primary" >Guardar</a>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('scriptpersonal')
 <script type="text/javascript">
@@ -140,6 +215,24 @@
     });
     $('#btn-finalizarticket').on('click', function() {        
       if (confirm("Realmente desea finaliza el ticket") == true) {
+        var id_ticket         = $(this).attr('data-id');
+        var id_usuario      = <?php echo auth()->id(); ?>;
+        $.ajax({
+            url: "/tickets/finalizar/"+id_ticket,
+            type: "GET",
+            data: {                
+                id_ticket     : id_ticket
+            },
+            cache: false,
+            success: function(dataResult){              
+                alert(dataResult);   
+                location.reload();                  
+            }
+        });  
+      }         
+    });
+    $('#btn-guardarhojaservicio').on('click', function() {        
+      if (confirm("Realmente desea generar la hoja de servicio") == true) {
         var id_ticket         = $(this).attr('data-id');
         var id_usuario      = <?php echo auth()->id(); ?>;
         $.ajax({

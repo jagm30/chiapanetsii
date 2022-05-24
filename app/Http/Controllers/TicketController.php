@@ -78,6 +78,17 @@ class TicketController extends Controller
      */
     public function show(Request $request, $id)
     {        
+        if ($request->ajax()) {
+            $ticket    = DB::table('tickets')
+                    ->select('tickets.id','tickets.id_usuario','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente','clientes.id as id_cliente','folio')
+                    ->leftjoin('users', 'tickets.id_usuario', '=', 'users.id')
+                    ->leftjoin('clientes', 'tickets.solicitante', '=', 'clientes.id')
+                    ->leftjoin('departamentos', 'tickets.ubicacion', '=', 'departamentos.id')
+                    ->leftjoin('catservicios', 'tickets.tipo', '=', 'catservicios.id')
+                    ->where('tickets.id',$id)
+                    ->first();
+            return json_encode($ticket);
+        }
         $fecha_actual =  Carbon::now()->format('Y-m-d');
         $tickets    = DB::table('tickets')
                     ->select('tickets.id','tickets.id_usuario','fecha','solicitante','ubicacion','tipo','descripcion','fechafin','status','name','departamentos.nombre','departamentos.seccion','prioridad','servicio','clientes.nombre as nomcliente','clientes.id as id_cliente','folio')

@@ -99,12 +99,13 @@
                         <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
+                                <!--
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            -->
                     </p>
                 </fieldset>
             </form>
@@ -122,8 +123,8 @@
     <footer class="row">
        
 
-        <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Desarrollado por: <a
-                href="#">Chiapanet Computo</a></p>
+        <!-- <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Desarrollado por: <a
+                href="#">Chiapanet Computo</a></p>  -->
     </footer>
 
 </div><!--/.fluid-container-->
