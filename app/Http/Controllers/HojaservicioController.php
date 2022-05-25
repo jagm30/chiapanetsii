@@ -36,7 +36,29 @@ class HojaservicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return "ok";
+        $hojaservicio                   = new Hojaservicio;
+        $hojaservicio->id_ticket        = $request->id_ticket;
+        $hojaservicio->folio            = $request->folio;
+        $hojaservicio->motivo           = $request->motivo;
+        $hojaservicio->fecha            = $request->fecha;
+        $hojaservicio->id_cliente       = $request->id_cliente;
+        $hojaservicio->id_usuario       = $request->id_usuario;
+        $hojaservicio->ubicacion        = $request->ubicacion;        
+        $hojaservicio->tipo_servicio    = $request->tipo_servicio;
+        $hojaservicio->id_equipo        = $request->id_equipo;                
+        $hojaservicio->detalle          = $request->detalle;
+        $hojaservicio->solucion         = $request->solucion;
+        $hojaservicio->proximoservicio  = $request->proximoservicio;
+        $hojaservicio->fecha_entrega    = $request->fecha_entrega;        
+        $hojaservicio->status           = $request->status;
+        
+        
+        
+        $hojaservicio->save();
+        return json_encode(array(
+            "Estado"=>"Hoja de servicio registrada correctamente..."
+        ));
     }
 
     /**

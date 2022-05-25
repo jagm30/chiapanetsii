@@ -54,7 +54,6 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $tickets                   = new Ticket;        
         $tickets->solicitante      = $request->solicitante;
         $tickets->fecha            = $request->fecha;
@@ -104,7 +103,11 @@ class TicketController extends Controller
                     ->join('tickets', 'tickets.id', '=', 'ticketseguimientos.id_ticket')
                     ->where('ticketseguimientos.id_ticket',$id)
                     ->get();
-        return view('tickets.show',compact('tickets','seguimiento','fecha_actual'));
+        $numseguimiento= DB::table('hojaservicios')
+                    ->select('hojaservicios.id_ticket')
+                    ->where('hojaservicios.id_ticket',$id)
+                    ->count();
+        return view('tickets.show',compact('tickets','seguimiento','fecha_actual','numseguimiento'));
     }
 
     /**

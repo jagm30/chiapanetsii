@@ -34,8 +34,13 @@
                             @if($tickets->status=='activo') 
                                 <a href="#" class="btn btn-primary btn-setting" >Seguimiento</a>
                                 <a href="#" id="btn-finalizarticket" class="btn btn-danger" data-id="{{$tickets->id}}" >Finalizar Ticket</a> <br><br>
-                                <a href="#" id="btn-hojaservicio" data-id="{{$tickets->id}}" class="btn btn-success btn-modalhojaservicio" data-id="{{$tickets->id}}" >Generar Hoja de Servicio</a>
+                                
                             @else @endif
+                            @if($numseguimiento >0)
+                                <a href="#" id="btn-hojaservicio" data-id="{{$tickets->id}}" class="btn btn-warning" data-id="{{$tickets->id}}" >Imprimir Hoja de Servicio</a>
+                            @else
+                                <a href="#" id="btn-hojaservicio" data-id="{{$tickets->id}}" class="btn btn-success btn-modalhojaservicio" data-id="{{$tickets->id}}" >Generar Hoja de Servicio</a>
+                            @endif
                         </li>                       
                     </ul>
                 </div>
@@ -114,8 +119,8 @@
 
         <div class="modal-dialog">
             <div class="modal-content">
-            <form id="form-editar">
-            <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+            <form id="form-hojaservicio">
+            <input type="hidden" name="_token" id="csrf2" value="{{Session::token()}}">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
                     <h3 style="color: #002B7F;">Hoja de servicios</h3>
@@ -150,10 +155,10 @@
                         <label class="control-label" for="inputWarning1">Equipo</label>
                         <select id="id_equipo" name="id_equipo" class="form-control select">
                             <option value="">Seleccione</option>
-                            <option>PC M58 Intel core 2 duo, N/S_ mj68a7s8d7</option>
-                            <option>PC M58 Intel core 2 duo, N/S_ mj68a3n42jn</option>
-                            <option>PC M58 Intel core 2 duo, N/S_ mj68sdfds4</option>
-                            <option>PC M58 Intel core 2 duo, N/S_ mj68a7dfew</option>
+                            <option value="1">PC M58 Intel core 2 duo, N/S_ mj68a7s8d7</option>
+                            <option value="2">PC M58 Intel core 2 duo, N/S_ mj68a3n42jn</option>
+                            <option value="3">PC M58 Intel core 2 duo, N/S_ mj68sdfds4</option>
+                            <option value="4">PC M58 Intel core 2 duo, N/S_ mj68a7dfew</option>
                         </select>
                     </div>
                     <div class="form-group has-success col-md-12">
@@ -233,20 +238,52 @@
     });
     $('#btn-guardarhojaservicio').on('click', function() {        
       if (confirm("Realmente desea generar la hoja de servicio") == true) {
-        var id_ticket         = $(this).attr('data-id');
+        var id_ticket       = $(this).attr('data-id');
         var id_usuario      = <?php echo auth()->id(); ?>;
-        $.ajax({
-            url: "/tickets/finalizar/"+id_ticket,
-            type: "GET",
-            data: {                
-                id_ticket     : id_ticket
+        var id_cliente      = <?php echo $tickets->id_cliente; ?>;
+        var ubicacion       = <?php echo $tickets->ubicacion; ?>;
+        var fecha           = $('#fecha').val();
+        var folio           = $('#folio').val();
+        var motivo          = $('#motivo').val();
+        var tipo_servicio   = $('#tipo_servicio').val();
+        var id_equipo       = $('#id_equipo').val();
+        var detalle         = $('#detalle').val();
+        var solucion        = $('#solucion').val();
+        var fecha_entrega   = $('#fecha_entrega').val();
+        var proximoservicio = $('#proximoservicio').val();
+        if(folio== '' || motivo == '' || tipo_servicio == '' || solucion == '' || id_equipo == ''){
+            $("#folio").focus();$("#motivo").focus();$("#tipo_servicio").focus();$("#solucion").focus();$("#id_equipo").focus();
+            alert("complete los campos faltantes...");
+        }else{
+            $.ajax({
+            url: "/hojaservicios",
+            type: "POST",
+            data: {
+                _token: $("#csrf2").val(),
+                type: 1,
+                id_ticket     : id_ticket,
+                fecha         : fecha,
+                folio         : folio,
+                motivo        : motivo,
+                tipo_servicio : tipo_servicio,
+                id_equipo     : id_equipo,
+                id_cliente    : id_cliente,
+                ubicacion     : ubicacion,
+                detalle       : detalle,
+                solucion      : solucion,
+                fecha_entrega : fecha_entrega,
+                proximoservicio: proximoservicio,
+                status        : 'activo',                
+                id_usuario    : id_usuario
             },
             cache: false,
             success: function(dataResult){              
                 alert(dataResult);   
                 location.reload();                  
+
             }
-        });  
+            });   
+        }
       }         
     });
 </script>

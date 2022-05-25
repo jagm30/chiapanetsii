@@ -28,5 +28,3 @@ Route::resource('articulos', 'ArticuloController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
