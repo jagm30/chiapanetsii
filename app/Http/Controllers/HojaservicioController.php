@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hojaservicio;
 use Illuminate\Http\Request;
-
+use PDF;
 class HojaservicioController extends Controller
 {
     /**
@@ -104,5 +104,23 @@ class HojaservicioController extends Controller
     public function destroy(Hojaservicio $hojaservicio)
     {
         //
+    }
+    public function reportePDF(Request $request, $id){
+        $data = [
+            'titulo' => 'Styde.net'
+        ];
+
+       /* $view = \View::make('tickets.hojaserviciopdf', $data);
+        $pdf        = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('invoice');*/
+
+
+        $pdf = PDF::setOptions([
+        'isHtml5ParserEnabled' => true,
+        'isRemoteEnabled' => true
+    ])->loadView('tickets.hojaserviciopdf', $data);         
+        return $pdf->stream();
+
     }
 }

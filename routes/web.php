@@ -23,6 +23,7 @@ Route::resource('tickets', 'TicketController');
 Route::resource('ticketseguimientos', 'TicketseguimientoController');
 Route::resource('departamentos', 'DepartamentoController');
 Route::resource('catservicios', 'CatservicioController');
+Route::get('hojaservicios/reportePDF/{id}', 'HojaservicioController@reportePDF')->name('reportePDF');
 Route::resource('hojaservicios', 'HojaservicioController');
 Route::resource('articulos', 'ArticuloController');
 Auth::routes();
