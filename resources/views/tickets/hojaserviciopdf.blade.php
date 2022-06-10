@@ -71,15 +71,14 @@
 </head>
 <body>
      <div id="watermark">
-           <img src="{{ public_path().'/img/clientes/2.jpg'}}" width="150px" height="150px">
-            
+           <!--<img src="{{ public_path().'/img/formato.jpg' }}" width="100%" height="100%">             -->
+           <img class="mx-auto" src="{{ URL::asset('https://lasalle.chiapanetcomputo.com/img/formato.jpg') }}" width="100%" height="100%">
       </div>     
       <p style="position: fixed;
                 bottom:   0px;
                 left:     38px;
                 top:     117px;
-                font-size: 10pt;">Reporte del {{date('d-m-Y', strtotime('2019-01-01'))}}  al  {{date('d-m-Y', strtotime('2019-01-01'))}}</p>       
-                2   
+                font-size: 10pt;">Reporte del {{date('d-m-Y', strtotime('2019-01-01'))}}  al  {{date('d-m-Y', strtotime('2019-01-01'))}}</p>          
 </body>
 </body>
 </html>

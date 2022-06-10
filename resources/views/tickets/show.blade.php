@@ -37,7 +37,7 @@
                                 
                             @else @endif
                             @if($numseguimiento >0)
-                                <a href="#" id="btn-hojaservicio" data-id="{{$tickets->id}}" class="btn btn-warning" data-id="{{$tickets->id}}" >Imprimir Hoja de Servicio</a>
+                                <a href="/hojaservicios/reportePDF/{{$tickets->id}}" target="_blank" id="btn-hojaservicio"  class="btn btn-warning" >Imprimir Hoja de Servicio</a>
                             @else
                                 <a href="#" id="btn-hojaservicio" data-id="{{$tickets->id}}" class="btn btn-success btn-modalhojaservicio" data-id="{{$tickets->id}}" >Generar Hoja de Servicio</a>
                             @endif
