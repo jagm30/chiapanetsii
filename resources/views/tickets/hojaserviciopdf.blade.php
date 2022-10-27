@@ -70,15 +70,29 @@
         </style>
 </head>
 <body>
-     <div id="watermark">
-           <!--<img src="{{ public_path().'/img/formato.jpg' }}" width="100%" height="100%">             -->
-           <img class="mx-auto" src="{{ URL::asset('https://lasalle.chiapanetcomputo.com/img/formato.jpg') }}" width="100%" height="100%">
-      </div>     
-      <p style="position: fixed;
-                bottom:   0px;
-                left:     38px;
-                top:     117px;
-                font-size: 10pt;">Reporte del {{date('d-m-Y', strtotime('2019-01-01'))}}  al  {{date('d-m-Y', strtotime('2019-01-01'))}}</p>          
+    <div id="watermark">
+        <img class="mx-auto" src="{{ URL::asset('https://lasalle.chiapanetcomputo.com/img/formato.jpg') }}" width="100%" height="100%">
+    </div>     
+    <p style="position: fixed;bottom:0px;left:530px;top:30px;font-size: 10pt;">N/A</p>
+    <p style="position: fixed;bottom:0px;left:660px;top:30px;font-size: 10pt;">folio</p>
+    <p style="position: fixed;bottom:0px;left:420px;top:68px;font-size: 10pt;">{{date('d-m-Y', strtotime('2019-01-01'))}}</p>
+
+    <p style="position: fixed;bottom:0px;left:70px;top:97px;font-size: 10pt;">José Antonio Gijón Muñoz</p>
+    <p style="position: fixed;bottom:0px;left:500px;top:97px;font-size: 10pt;">Sistemas y Redes</p>
+
+    <p style="position: fixed;bottom:0px;left:70px;top:125px;font-size: 10pt;">José Antonio Gijón Muñoz</p>
+    <p style="position: fixed;bottom:0px;left:500px;top:125px;font-size: 10pt;">Cronograma</p>
+    <p style="position: fixed;bottom:0px;left:50;top:145px;font-size: 10pt;">Correctivo</p>
+
+    <p style="position: fixed;bottom:0px;left:30;top:178px;font-size: 10pt; width: 87%;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+
+    <p style="position: fixed;bottom:0px;left:30;top:240px;font-size: 10pt; width: 87%;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+
+    <p style="position: fixed;bottom:0px;left:30;top:297px;font-size: 10pt; width: 87%;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.</p>
+
+    <p style="position: fixed;bottom:0px;left:113;top:219px;font-size: 10pt;">X</p>
+    <p style="position: fixed;bottom:0px;left:166;top:219px;font-size: 10pt;">X</p>
+    <p style="position: fixed;bottom:0px;left:296;top:219px;font-size: 10pt;">X</p>
 </body>
 </body>
 </html>

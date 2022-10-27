@@ -43,7 +43,7 @@
 
         <div class="navbar-inner">
          
-            <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src=" {{ asset("img/logo.png " ) }} " class="hidden-xs"/>
+            <a class="navbar-brand" href="/home"> <img alt="Charisma Logo" src=" {{ asset("img/logo.png " ) }} " class="hidden-xs"/>
                 <span>SIISALLETUX</span></a>
 
             <!-- user dropdown starts -->
