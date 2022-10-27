@@ -74,6 +74,7 @@
                             </li>                       
                         </ul>
                     @endforeach
+                    <div id="mensaje"></div>
                 </div>
             </div>
         </div>
@@ -212,9 +213,9 @@
             },
             cache: false,
             success: function(dataResult){              
-                alert(dataResult);   
+                //alert(dataResult);   
                 location.reload();                  
-
+                $("#mensaje").html("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Agregado correctamente!</strong> ok.</div>").delay(2000);
             }
         });    
     });
@@ -230,8 +231,9 @@
             },
             cache: false,
             success: function(dataResult){              
-                alert(dataResult);   
-                location.reload();                  
+               // alert(dataResult);   
+                //location.reload();      
+                location.replace("/tickets");
             }
         });  
       }         
