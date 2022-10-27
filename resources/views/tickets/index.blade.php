@@ -74,13 +74,13 @@
         <tbody>
             @foreach($tickets as $ticket)
                 <tr >
-                    <td>{{$ticket->fecha}}</td>
-                    <td class="center">{{$ticket->nomcliente}}</td>
-                    <td class="center">{{$ticket->nombre}} {{$ticket->seccion}}</td>
-                    <td class="center">{{$ticket->descripcion}}</td>
-                    <td class="center" style="background-color: @if($ticket->prioridad=='alto') red @else green @endif; color: white;">{{$ticket->prioridad}}</td>
-                    <td class="center" style="@if($ticket->status=='finalizado')background-color:red; color:white;@else background-color:green; color:white; @endif ">{{$ticket->status}}</td>
-                    <td class="center" width="160">
+                    <td  style="vertical-align:middle; font-size:10pt;">{{$ticket->fecha}}</td>
+                    <td class="center" style="vertical-align:middle; font-size:10pt;">{{$ticket->nomcliente}}</td>
+                    <td class="center" style="vertical-align:middle; font-size:10pt;">{{$ticket->nombre}} {{$ticket->seccion}}</td>
+                    <td class="center" style="vertical-align:middle; font-size:10pt;">{{$ticket->descripcion}}</td>
+                    <td class="center" style="background-color: @if($ticket->prioridad=='alto') red @else green @endif; color: white; vertical-align:middle; font-size:10pt; text-align: center;">{{$ticket->prioridad}}</td>
+                    <td class="center" style="@if($ticket->status=='finalizado')background-color:red; color:white;@else background-color:green; color:white; @endif  vertical-align:middle; font-size:10pt; text-align: center;">{{$ticket->status}}</td>
+                    <td class="center" width="160" style=" vertical-align:middle; font-size:10pt; text-align: center;">
                         <a class="btn @if($ticket->status=='finalizado') btn-success @else btn-info @endif" href="/tickets/{{$ticket->id}}">
                             
                             @if($ticket->status=='finalizado') <i class="glyphicon glyphicon-read  icon-white"></i> Consultar @else <i class="glyphicon glyphicon-edit icon-white"></i> Seguimiento @endif

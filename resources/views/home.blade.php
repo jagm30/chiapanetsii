@@ -65,17 +65,17 @@
             <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody style="">
             @foreach($tickets as $ticket)
                 <tr>
-                    <td>{{$ticket->fecha}}</td>
-                    <td class="center"><img class="dashboard-avatar" alt="Usman"
+                    <td style="vertical-align:middle;font-size:10pt;">{{$ticket->fecha}}</td>
+                    <td class="center" style="vertical-align:middle; font-size:10pt; "><img class="dashboard-avatar" alt="Usman"
                                          src="/img/clientes/{{$ticket->idcliente}}.jpg?s=50"> {{$ticket->nomcliente}}</td>
-                    <td class="center">{{$ticket->nombre}} {{$ticket->seccion}}</td>
-                    <td class="center">{{$ticket->descripcion}}</td>
-                    <td class="center" style="background-color: @if($ticket->prioridad=='alto') red @else green @endif; color: white;">{{$ticket->prioridad}}</td>
-                    <td class="center" >{{$ticket->status}}</td>
-                    <td class="center" width="160">
+                    <td class="center" style="vertical-align:middle;vertical-align:middle; ">{{$ticket->nombre}} {{$ticket->seccion}}</td>
+                    <td class="center" style="vertical-align:middle;">{{$ticket->descripcion}}</td>
+                    <td class="center" style="background-color: @if($ticket->prioridad=='alto') red @else green @endif; color: white; vertical-align:middle; text-align: center;" >{{$ticket->prioridad}}</td>
+                    <td class="center" style="vertical-align:middle; text-align: center;">{{$ticket->status}}</td>
+                    <td class="center" width="160" style="vertical-align:middle; text-align: center;">
                         <a class="btn btn-info" href="/tickets/{{$ticket->id}}">
                             <i class="glyphicon glyphicon-edit icon-white"></i>
                             Seguimiento
