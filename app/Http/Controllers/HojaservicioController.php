@@ -49,12 +49,16 @@ class HojaservicioController extends Controller
         $hojaservicio->id_equipo        = $request->id_equipo;                
         $hojaservicio->detalle          = $request->detalle;
         $hojaservicio->solucion         = $request->solucion;
+        $hojaservicio->oplimpieza       = $request->oplimpieza;
+        $hojaservicio->opprueba         = $request->opprueba;
+        $hojaservicio->opcotejado       = $request->opcotejado;
+        $hojaservicio->oprevfisica      = $request->oprevfisica;
         $hojaservicio->proximoservicio  = $request->proximoservicio;
         $hojaservicio->fecha_entrega    = $request->fecha_entrega;        
         $hojaservicio->status           = $request->status;
         
         
-        
+       // return $request;
         $hojaservicio->save();
         return json_encode(array(
             "Estado"=>"Hoja de servicio registrada correctamente..."

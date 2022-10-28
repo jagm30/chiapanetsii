@@ -163,13 +163,28 @@
                         </select>
                     </div>
                     <div class="form-group has-success col-md-12">
-                        <label class="control-label" for="inputSuccess1">Detalles</label>
+                        <label class="control-label" for="inputSuccess1">Detalles reportados por el usuario</label>
                         <input id="detalle" type="text" class="form-control"  name="detalle" required >
                     </div>               
                     <div class="form-group has-success col-md-12">
                         <label class="control-label" for="inputSuccess1">Detalles, Servicio Realizado</label>
                         <input id="solucion" type="text" class="form-control"  name="solucion" required >
                     </div>  
+                    <div class="form-group has-success col-md-6">
+                        <label class="control-label" for="inputSuccess1">Servicio realizado:</label><br>
+                        <label class="checkbox-inline" style="padding-left:30px;">
+                            <input type="checkbox" id="oplimpieza" value="option1">Limpieza
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="opprueba" value="option2">Pruebas de Funcionamiento
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="opcotejado" value="option3">Cotejado contra resguardo
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="oprevfisica" value="option3">Revisión fisica
+                        </label>
+                    </div>
                     <div class="form-group has-warning col-md-6">
                         <label class="control-label" for="inputWarning1">Fecha de entrega</label>
                         <input id="fecha_entrega" name="fecha_entrega" type="date" class="form-control" required value="{{$fecha_actual}}" >
@@ -238,7 +253,8 @@
         });  
       }         
     });
-    $('#btn-guardarhojaservicio').on('click', function() {        
+    $('#btn-guardarhojaservicio').on('click', function() {    
+        
       if (confirm("Realmente desea generar la hoja de servicio") == true) {
         var id_ticket       = $(this).attr('data-id');
         var id_usuario      = <?php echo auth()->id(); ?>;
@@ -253,6 +269,24 @@
         var solucion        = $('#solucion').val();
         var fecha_entrega   = $('#fecha_entrega').val();
         var proximoservicio = $('#proximoservicio').val();
+        var oplimpieza  = 0;
+        var opprueba    = 0;
+        var opcotejado  = 0;
+        var oprevfisica = 0;
+        
+        if( $('#oplimpieza').prop('checked') ) {
+            oplimpieza = 1;
+        }
+        if( $('#opprueba').prop('checked') ) {
+            opprueba = 1;
+        }
+        if( $('#opcotejado').prop('checked') ) {
+            opcotejado = 1;
+        }
+        if( $('#oprevfisica').prop('checked') ) {
+            oprevfisica = 1;
+        }
+        //alert("ok");
         if(folio== '' || motivo == '' || tipo_servicio == '' || solucion == '' || id_equipo == ''){
             $("#folio").focus();$("#motivo").focus();$("#tipo_servicio").focus();$("#solucion").focus();$("#id_equipo").focus();
             alert("complete los campos faltantes...");
@@ -273,6 +307,10 @@
                 ubicacion     : ubicacion,
                 detalle       : detalle,
                 solucion      : solucion,
+                oplimpieza    : oplimpieza,
+                opprueba      : opprueba,
+                opcotejado    : opcotejado,
+                oprevfisica   : oprevfisica,                
                 fecha_entrega : fecha_entrega,
                 proximoservicio: proximoservicio,
                 status        : 'activo',                
