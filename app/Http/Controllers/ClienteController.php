@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Departamento;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -16,9 +17,10 @@ class ClienteController extends Controller
     {
         //
        // return "clientes";
+        $departamentos    = Departamento::all();
         $clientes = Cliente::all();
         //return $usuarios;
-        return view("clientes.index",compact('clientes'));
+        return view("clientes.index",compact('clientes','departamentos'));
     }
 
     /**

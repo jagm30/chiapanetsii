@@ -34,8 +34,12 @@
                     </select>
                 </div>
                 <div class="form-group has-success col-md-2">
-                    <label class="control-label" for="inputSuccess1">Salon</label>
-                    <input id="salon" type="text" class="form-control"  name="salon" required >
+                    <label class="control-label" for="inputSuccess1">Salon</label>                    
+                    <select id="salon" name="salon" class="form-control" required>
+                        @foreach($departamentos as $departamento)
+                            <option value="{{$departamento->id}}">{{$departamento->nombre}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group has-error col-md-3">
                     <label class="control-label" for="inputError1">Puesto</label>
