@@ -290,9 +290,9 @@ function docReady() {
         else                       $('i', $(this)).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
         $target.slideToggle();
     });
-    $('.btn-setting').click(function (e) {
+    $('.btn-editar_cliente').click(function (e) {
         e.preventDefault();
-        $('#myModal').modal('show');
+        $('#modalEditarCliente').modal('show');
     });
     $('.btn-modalhojaservicio').click(function (e) {
         e.preventDefault();

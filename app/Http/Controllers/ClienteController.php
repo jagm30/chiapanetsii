@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Cliente;
 use App\Departamento;
+use App\Seccione;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -17,10 +19,11 @@ class ClienteController extends Controller
     {
         //
        // return "clientes";
-        $departamentos    = Departamento::all();
-        $clientes = Cliente::all();
+        $departamentos  = Departamento::all();
+        $clientes       = Cliente::all();
+        $secciones      = Seccione::all();
         //return $usuarios;
-        return view("clientes.index",compact('clientes','departamentos'));
+        return view("clientes.index",compact('clientes','departamentos','secciones'));
     }
 
     /**
@@ -60,9 +63,14 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $cliente    = DB::table('clientes')                                        
+                    ->where('clientes.id',$id)
+                    ->first();
+            return json_encode($cliente);
+        }
     }
 
     /**

@@ -26,6 +26,7 @@ Route::resource('catservicios', 'CatservicioController');
 Route::get('hojaservicios/reportePDF/{id}', 'HojaservicioController@reportePDF')->name('reportePDF');
 Route::resource('hojaservicios', 'HojaservicioController');
 Route::resource('articulos', 'ArticuloController');
+Route::resource('secciones', 'SeccioneController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
