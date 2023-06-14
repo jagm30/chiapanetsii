@@ -32,7 +32,7 @@
                             <strong>Descripción:</strong>{{$tickets->descripcion}}<br>
                             <br>
                             @if($tickets->status=='activo') 
-                                <a href="#" class="btn btn-primary btn-setting" >Seguimiento</a>
+                                <a href="#" class="btn btn-primary btn-setting" data-toggle="modal" data-target="#myModal">Seguimiento</a>
                                 <a href="#" id="btn-finalizarticket" class="btn btn-danger" data-id="{{$tickets->id}}" >Finalizar Ticket</a> <br><br>
                                 
                             @else @endif
@@ -207,7 +207,7 @@
 @section('scriptpersonal')
 <script type="text/javascript">
     $('#btn-guardarseguimiento').on('click', function() {
-        
+    
       
       var id_ticket         = $(this).attr('data-id');
       var fecha             = $('#fecha').val();
